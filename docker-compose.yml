@@ -1,0 +1,21 @@
+version: '3.9'
+
+services:
+  # Nodeapp
+  nodeapp:
+    restart: on-failure
+    build: ./nodeapp
+
+  # Nginx
+  nginx:
+    build: ./nginx
+    ports:
+      - '3000:3000'
+    depends_on:
+      - nodeapp
+
+  # Apache2
+  httpd:
+    build: ./httpd
+    ports:
+      - '3000:3000'
